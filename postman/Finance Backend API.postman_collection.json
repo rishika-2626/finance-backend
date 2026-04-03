@@ -1,0 +1,368 @@
+{
+  "info": {
+    "_postman_id": "9703d306-6aa8-43e8-a334-09e73eabf5f7",
+    "name": "Finance Backend API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "44139707",
+    "_collection_link": "https://go.postman.co/collection/44139707-9703d306-6aa8-43e8-a334-09e73eabf5f7?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Register",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZDAwZWY3M2EwZDcxMWIyYWZkNGI1ZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NTI0MzAzNSwiZXhwIjoxNzc1ODQ3ODM1fQ.hlG8TXnBsvBpDgdhW8QP_WGPR1jlYx2Tro-F07TTVfk",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": 1200,\n  \"type\": \"expense\",\n  \"category\": \"shopping\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Users",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZDAxYWVhN2ZmODc5YmNhYzk2ODJmZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NTI0NzAwNSwiZXhwIjoxNzc1ODUxODA1fQ.3bBKL1KoSnmQKsKkpcisRI8IahvNtKetK9oXMdBKKQ0",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/users",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "dashboard-recent",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZDAxYWVhN2ZmODc5YmNhYzk2ODJmZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NTI0NzAwNSwiZXhwIjoxNzc1ODUxODA1fQ.3bBKL1KoSnmQKsKkpcisRI8IahvNtKetK9oXMdBKKQ0",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/dashboard/recent",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "dashboard",
+            "recent"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "dashboard-trends",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "dashboard-categories",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZDAxYWVhN2ZmODc5YmNhYzk2ODJmZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NTI0NzAwNSwiZXhwIjoxNzc1ODUxODA1fQ.3bBKL1KoSnmQKsKkpcisRI8IahvNtKetK9oXMdBKKQ0",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/dashboard/categories",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "dashboard",
+            "categories"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "dashboard-summary",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZDAwZWY3M2EwZDcxMWIyYWZkNGI1ZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NTI0MzAzNSwiZXhwIjoxNzc1ODQ3ODM1fQ.hlG8TXnBsvBpDgdhW8QP_WGPR1jlYx2Tro-F07TTVfk",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/dashboard/summary",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "dashboard",
+            "summary"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Records",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZDAwZWY3M2EwZDcxMWIyYWZkNGI1ZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NTI0MzAzNSwiZXhwIjoxNzc1ODQ3ODM1fQ.hlG8TXnBsvBpDgdhW8QP_WGPR1jlYx2Tro-F07TTVfk",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/records",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "records"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Pagination",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZDAwZWY3M2EwZDcxMWIyYWZkNGI1ZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NTI0MzAzNSwiZXhwIjoxNzc1ODQ3ODM1fQ.hlG8TXnBsvBpDgdhW8QP_WGPR1jlYx2Tro-F07TTVfk",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/records?page=2&limit=5",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "records"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "2"
+            },
+            {
+              "key": "limit",
+              "value": "5"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Search",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZDAwZWY3M2EwZDcxMWIyYWZkNGI1ZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NTI0MzAzNSwiZXhwIjoxNzc1ODQ3ODM1fQ.hlG8TXnBsvBpDgdhW8QP_WGPR1jlYx2Tro-F07TTVfk",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/records?search=food",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "records"
+          ],
+          "query": [
+            {
+              "key": "search",
+              "value": "food"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Filter",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZDAwZWY3M2EwZDcxMWIyYWZkNGI1ZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NTI0MzAzNSwiZXhwIjoxNzc1ODQ3ODM1fQ.hlG8TXnBsvBpDgdhW8QP_WGPR1jlYx2Tro-F07TTVfk",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/records?type=expense",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "records"
+          ],
+          "query": [
+            {
+              "key": "type",
+              "value": "expense"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Records",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZDAwZWY3M2EwZDcxMWIyYWZkNGI1ZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NTI0MzAzNSwiZXhwIjoxNzc1ODQ3ODM1fQ.hlG8TXnBsvBpDgdhW8QP_WGPR1jlYx2Tro-F07TTVfk",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": 3000,\n  \"type\": \"expense\",\n  \"category\": \"food\",\n  \"notes\": \"monthly salary\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/records",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "records"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update User",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZDAwZWY3M2EwZDcxMWIyYWZkNGI1ZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NTI0MzAzNSwiZXhwIjoxNzc1ODQ3ODM1fQ.hlG8TXnBsvBpDgdhW8QP_WGPR1jlYx2Tro-F07TTVfk",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"active\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/users/69d00c513125585cad7ff0a7",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "users",
+            "69d00c513125585cad7ff0a7"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
