@@ -189,19 +189,19 @@ Query params:
 
 ### 👤 Get All Users
 
-![Get Users](./screenshots/Get all users.png)
+![Get Users](./screenshots/Get-all-users.png)
 
 ---
 
 ### 🚫 Forbidden Access
 
-![Forbidden](./screenshots/Get users (forbidden).png)
+![Forbidden](./screenshots/Get-users-(forbidden).png)
 
 ---
 
 ### 💰 Create / Manage Records
 
-![Records](./screenshots/Get all records.png)
+![Records](./screenshots/Get-all-records.png)
 
 ---
 
@@ -225,7 +225,7 @@ Query params:
 
 ### 📊 Dashboard Summary ⭐
 
-![Dashboard](./screenshots/Dashboard Summary.png)
+![Dashboard](./screenshots/Dashboard-Summary.png)
 
 ---
 
