@@ -4,7 +4,7 @@
 
 This project is a backend system for a finance dashboard that manages financial records, user roles, and access control. It provides APIs for handling transactions, enforcing role-based permissions, and generating summary-level analytics for dashboards.
 
-The system is designed with a focus on clean architecture, scalability, and real-world backend practices.
+The system is designed with a clean architecture and demonstrates real-world backend development practices.
 
 ---
 
@@ -14,42 +14,29 @@ The system is designed with a focus on clean architecture, scalability, and real
 
 * JWT-based authentication
 * Secure login and registration
-* Role-based access control (RBAC)
+* Role-based access control (Admin, Analyst, Viewer)
 * Prevent login for inactive users
 
 ### 👤 User & Role Management
 
 * Create and manage users
-* Assign roles: **Admin, Analyst, Viewer**
-* Update user roles and status (active/inactive)
-* Admin-only user management APIs
+* Assign roles and update status
+* Admin-only access for managing users
 
 ### 💰 Financial Records Management
 
 * Create, update, delete financial records
-* Fields:
-
-  * Amount
-  * Type (income / expense)
-  * Category
-  * Date
-  * Notes
-* Filtering support:
-
-  * By type
-  * By category
-  * By date range
+* Fields include amount, type, category, date, and notes
+* Filtering support (type, category, date range)
 
 ### 🔍 Search & Pagination
 
 * Search records by category or notes
-* Pagination support for large datasets
+* Pagination for efficient data handling
 
 ### 📊 Dashboard APIs
 
-* Total income
-* Total expenses
-* Net balance
+* Total income, total expenses, net balance
 * Category-wise breakdown
 * Monthly trends
 * Recent activity
@@ -58,10 +45,11 @@ The system is designed with a focus on clean architecture, scalability, and real
 
 ## 🛠 Tech Stack
 
-* **Backend:** Node.js, Express.js
-* **Database:** MongoDB (Mongoose)
-* **Authentication:** JWT
-* **Other Tools:** bcryptjs, dotenv
+* Node.js
+* Express.js
+* MongoDB (Mongoose)
+* JWT Authentication
+* bcryptjs
 
 ---
 
@@ -70,7 +58,7 @@ The system is designed with a focus on clean architecture, scalability, and real
 ### 1. Clone the repository
 
 ```bash
-git clone <your-repo-link>
+git clone https://github.com/rishika-2626/finance-backend.git
 cd finance-backend
 ```
 
@@ -94,7 +82,7 @@ JWT_SECRET=your_secret_key
 npm run dev
 ```
 
-Server will run on:
+Server runs at:
 
 ```
 http://localhost:3000
@@ -104,101 +92,149 @@ http://localhost:3000
 
 ## 📡 API Endpoints
 
-### 🔐 Auth Routes
+### 🔐 Auth
 
-* `POST /auth/register` → Register user
-* `POST /auth/login` → Login user
+* POST `/auth/register`
+* POST `/auth/login`
 
----
+### 👤 Users (Admin Only)
 
-### 👤 User Routes (Admin Only)
+* GET `/users`
+* PUT `/users/:id`
+* DELETE `/users/:id`
 
-* `GET /users` → Get all users
-* `PUT /users/:id` → Update user
-* `DELETE /users/:id` → Delete user
+### 💰 Records
 
----
+* POST `/records`
+* GET `/records`
+* PUT `/records/:id`
+* DELETE `/records/:id`
 
-### 💰 Record Routes
+Query params:
 
-* `POST /records` → Create record (Admin)
-* `GET /records` → Get records (Admin, Analyst)
-* `PUT /records/:id` → Update record (Admin)
-* `DELETE /records/:id` → Delete record (Admin)
+* `type`
+* `category`
+* `search`
+* `page`
+* `limit`
 
-#### 🔍 Query Parameters:
+### 📊 Dashboard
 
-* `type=income/expense`
-* `category=food`
-* `startDate=YYYY-MM-DD`
-* `endDate=YYYY-MM-DD`
-* `search=keyword`
-* `page=1`
-* `limit=5`
-
----
-
-### 📊 Dashboard Routes
-
-* `GET /dashboard/summary`
-* `GET /dashboard/categories`
-* `GET /dashboard/trends`
-* `GET /dashboard/recent`
+* GET `/dashboard/summary`
+* GET `/dashboard/categories`
+* GET `/dashboard/trends`
+* GET `/dashboard/recent`
 
 ---
 
 ## 🔑 Role Permissions
 
-| Role    | Permissions                   |
-| ------- | ----------------------------- |
-| Admin   | Full access (users + records) |
-| Analyst | View records + dashboard      |
-| Viewer  | View dashboard only           |
+| Role    | Permissions              |
+| ------- | ------------------------ |
+| Admin   | Full access              |
+| Analyst | View records + dashboard |
+| Viewer  | Dashboard only           |
+
+---
+
+## 🧠 Design Decisions
+
+* JWT used for stateless authentication
+* Role-based middleware ensures secure access
+* MongoDB chosen for flexible schema design
+* Dashboard aggregation handled on backend
+
+---
+
+## 🗃️ Data Modeling
+
+* Users and records stored in MongoDB
+* Records linked to users via `createdBy`
+* Enum fields used for roles and transaction types
 
 ---
 
 ## ⚠️ Validation & Error Handling
 
 * Required field validation
-* Duplicate user prevention
-* Invalid credentials handling
+* Duplicate user checks
 * Proper HTTP status codes (400, 401, 403, 500)
-
----
-
-## 📌 Assumptions
-
-* Only admins can modify records and users
-* Analysts can only view records and analytics
-* Viewers have read-only dashboard access
-* Soft delete is not implemented (hard delete used)
-
----
-
-## ⭐ Additional Features Implemented
-
-* JWT Authentication
-* Pagination for records
-* Search functionality
 * Inactive user login restriction
 
 ---
 
-## 📦 Future Improvements
+## ⭐ Additional Features
 
-* Soft delete for records
-* Rate limiting
-* API documentation (Swagger)
-* Unit & integration tests
+* Pagination
+* Search functionality
+* Role-based access control
+* JWT Authentication
+* Inactive user restriction
 
 ---
 
-## 👨‍💻 Author
+## 📸 API Screenshots
 
-Rishika Thatipamula
+### 🔐 Register
+
+![Register](./screenshots/Register.png)
+
+---
+
+### 🔑 Login
+
+![Login](./screenshots/Login.png)
+
+---
+
+### 👤 Get All Users
+
+![Get Users](./screenshots/Get all users.png)
+
+---
+
+### 🚫 Forbidden Access
+
+![Forbidden](./screenshots/Get users (forbidden).png)
+
+---
+
+### 💰 Create / Manage Records
+
+![Records](./screenshots/Get all records.png)
+
+---
+
+### 🔍 Search
+
+![Search](./screenshots/Search.png)
+
+---
+
+### 📄 Pagination
+
+![Pagination](./screenshots/Pagination.png)
+
+---
+
+### 🔍 Filter
+
+![Filter](./screenshots/filter.png)
+
+---
+
+### 📊 Dashboard Summary ⭐
+
+![Dashboard](./screenshots/Dashboard Summary.png)
 
 ---
 
 ## 📎 Notes
 
 This project was built as part of a backend engineering assignment to demonstrate API design, access control, and data processing capabilities.
+
+---
+
+## 👨‍💻 Author
+
+Rishika Thatipamula
