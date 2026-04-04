@@ -154,22 +154,83 @@ Query params:
 
 ---
 
-## ⚠️ Validation & Error Handling
+## 🛡️ Validation & Error Handling
 
-* Required field validation
-* Duplicate user checks
-* Proper HTTP status codes (400, 401, 403, 500)
-* Inactive user login restriction
+The backend includes proper validation and error handling to ensure reliability:
+
+* Input validation for required fields (e.g., username, email, password, amount)
+* Prevention of duplicate users during registration
+* Meaningful error messages for invalid operations
+* Proper HTTP status codes used:
+
+  * `400` – Bad Request
+  * `401` – Unauthorized
+  * `403` – Forbidden
+  * `500` – Internal Server Error
+* Role-based access control prevents unauthorized actions
+* Inactive users are restricted from logging in
+
+---
+
+## 🗃️ Data Persistence
+
+The application uses **MongoDB**, a document-based NoSQL database, for data storage.
+
+* Mongoose is used for schema definition and data modeling
+* User and financial records are stored as separate collections
+* Relationships are maintained using references (e.g., `createdBy`)
+* This approach allows flexible and scalable data management
+
+---
+## 📦 Postman Collection
+
+The API can be easily tested using the included Postman collection.
+
+### 📁 Location
+
+```
+postman/finance-backend.postman_collection.json
+```
+
+### 🚀 How to Use
+
+1. Open Postman
+2. Click **Import**
+3. Select the collection file from the `postman/` folder
+4. Run the requests directly
+
+### 🔐 Authentication
+
+For protected routes, add the JWT token in headers:
+
+```
+Authorization: Bearer YOUR_TOKEN
+```
+
+Alternatively, you can set a Postman environment variable:
+
+```
+token = YOUR_JWT_TOKEN
+```
+
+and use:
+
+```
+Authorization: Bearer {{token}}
+```
+
+This allows seamless testing of all authenticated endpoints.
 
 ---
 
 ## ⭐ Additional Features
 
-* Pagination
-* Search functionality
+* Pagination for efficient data handling
+* Search functionality using regex queries
 * Role-based access control
 * JWT Authentication
-* Inactive user restriction
+* Inactive user login restriction
+* Rate limiting for API protection
 
 ---
 
