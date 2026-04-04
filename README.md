@@ -234,47 +234,59 @@ This allows seamless testing of all authenticated endpoints.
 
 ---
 
+## 🧪 Testing
+
+All APIs were tested using Postman with JWT-based authentication and role-based access verification.
+
+---
+
 ## 📸 API Screenshots
 
 ### 🔐 Register
 
-![Register](./screenshots/Register.png)
+![Register](./screenshots/register.png)
 
 ---
 
 ### 🔑 Login
 
-![Login](./screenshots/Login.png)
+![Login](./screenshots/login.png)
 
 ---
 
 ### 👤 Get All Users
 
-![Get Users](./screenshots/Get-all-users.png)
+![Get Users](./screenshots/get-all-users.png)
 
 ---
 
 ### 🚫 Forbidden Access
 
-![Forbidden](./screenshots/Get-users-(forbidden).png)
+![Forbidden](./screenshots/get-users-forbidden.png)
 
 ---
 
 ### 💰 Create / Manage Records
 
-![Records](./screenshots/Get-all-records.png)
+![Records](./screenshots/get-all-records.png)
+
+---
+
+### ✏️ Update User Status (Active → Inactive)
+
+![Update User](./screenshots/update-user-status.png)
 
 ---
 
 ### 🔍 Search
 
-![Search](./screenshots/Search.png)
+![Search](./screenshots/search.png)
 
 ---
 
 ### 📄 Pagination
 
-![Pagination](./screenshots/Pagination.png)
+![Pagination](./screenshots/pagination.png)
 
 ---
 
@@ -286,7 +298,7 @@ This allows seamless testing of all authenticated endpoints.
 
 ### 📊 Dashboard Summary ⭐
 
-![Dashboard](./screenshots/Dashboard-Summary.png)
+![Dashboard](./screenshots/dashboard-summary.png)
 
 ---
 
