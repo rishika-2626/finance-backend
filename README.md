@@ -302,6 +302,12 @@ All APIs were tested using Postman with JWT-based authentication and role-based 
 
 ---
 
+### 📊 Dashboard Trends
+
+![Trends](./screenshots/dashboard-trends.png)
+
+---
+
 ## 📎 Notes
 
 This project was built as part of a backend engineering assignment to demonstrate API design, access control, and data processing capabilities.
