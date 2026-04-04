@@ -244,37 +244,37 @@ All APIs were tested using Postman with JWT-based authentication and role-based 
 
 ### 🔐 Register
 
-![Register](./screenshots/register.png)
+![Register](./screenshots/Register.png)
 
 ---
 
 ### 🔑 Login
 
-![Login](./screenshots/login.png)
+![Login](./screenshots/Login.png)
 
 ---
 
 ### 👤 Get All Users
 
-![Get Users](./screenshots/get-all-users.png)
+![Get Users](./screenshots/Get-all-users.png)
 
 ---
 
 ### 🚫 Forbidden Access
 
-![Forbidden](./screenshots/get-users-forbidden.png)
+![Forbidden](./screenshots/Get-users-(forbidden).png)
 
 ---
 
 ### 💰 Create / Manage Records
 
-![Records](./screenshots/get-all-records.png)
+![Records](./screenshots/Get-all-records.png)
 
 ---
 
 ### ✏️ Update User Status (Active → Inactive)
 
-![Update User](./screenshots/update-user-status.png)
+![Update User](./screenshots/Update-user.png)
 
 ---
 
@@ -286,7 +286,7 @@ All APIs were tested using Postman with JWT-based authentication and role-based 
 
 ### 📄 Pagination
 
-![Pagination](./screenshots/pagination.png)
+![Pagination](./screenshots/Pagination.png)
 
 ---
 
@@ -298,7 +298,7 @@ All APIs were tested using Postman with JWT-based authentication and role-based 
 
 ### 📊 Dashboard Summary ⭐
 
-![Dashboard](./screenshots/dashboard-summary.png)
+![Dashboard](./screenshots/Dashboard-Summary.png)
 
 ---
 
