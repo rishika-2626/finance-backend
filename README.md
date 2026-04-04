@@ -280,7 +280,7 @@ All APIs were tested using Postman with JWT-based authentication and role-based 
 
 ### 🔍 Search
 
-![Search](./screenshots/search.png)
+![Search](./screenshots/Search.png)
 
 ---
 
