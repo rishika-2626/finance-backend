@@ -1,49 +1,87 @@
-# 💰 Finance Data Processing & Access Control Backend
+# Multi-Tenant Finance Data Processing & Access Control Backend
 
-## 📌 Overview
+## Overview
 
-This project is a backend system for a finance dashboard that manages financial records, user roles, and access control. It provides APIs for handling transactions, enforcing role-based permissions, and generating summary-level analytics for dashboards.
+This project is a **multi-tenant backend system** designed for a finance dashboard. It enables multiple organizations to securely manage their financial records with strict data isolation and role-based access control (RBAC).
 
-The system is designed with a clean architecture and demonstrates real-world backend development practices.
+Each user belongs to a specific organization, and all data access is restricted within that organization, ensuring complete tenant isolation.
+
+The system demonstrates real-world backend engineering practices including authentication, authorization, audit logging, and scalable API design.
 
 ---
 
-## 🚀 Features
+## Features
 
-### 🔐 Authentication & Authorization
+### Multi-Tenant Architecture
+
+* Support for multiple organizations (tenants)
+* Each user is associated with a specific organization
+* Strict data isolation between organizations
+* Shared database with scoped queries for tenant safety
+
+---
+
+### Authentication & Authorization
 
 * JWT-based authentication
 * Secure login and registration
 * Role-based access control (Admin, Analyst, Viewer)
 * Prevent login for inactive users
 
-### 👤 User & Role Management
+---
 
-* Create and manage users
-* Assign roles and update status
-* Admin-only access for managing users
+### Role-Based Access Control (RBAC)
 
-### 💰 Financial Records Management
+| Role    | Permissions                   |
+| ------- | ----------------------------- |
+| Admin   | Full access (CRUD operations) |
+| Analyst | Create + view records         |
+| Viewer  | View-only access              |
+
+---
+
+### Financial Records Management
 
 * Create, update, delete financial records
 * Fields include amount, type, category, date, and notes
+* Records are scoped to organizations
 * Filtering support (type, category, date range)
 
-### 🔍 Search & Pagination
+---
 
-* Search records by category or notes
-* Pagination for efficient data handling
+### Search & Pagination
 
-### 📊 Dashboard APIs
+* Search records using regex (category, notes)
+* Pagination for efficient large dataset handling
 
-* Total income, total expenses, net balance
+---
+
+### Dashboard APIs
+
+* Total income, expenses, net balance
 * Category-wise breakdown
 * Monthly trends
 * Recent activity
 
 ---
 
-## 🛠 Tech Stack
+### Audit Logging
+
+* Tracks all record-related actions:
+
+  * CREATE
+  * UPDATE
+  * DELETE
+* Logs include:
+
+  * user
+  * record
+  * organization
+  * timestamp
+
+---
+
+## Tech Stack
 
 * Node.js
 * Express.js
@@ -53,7 +91,7 @@ The system is designed with a clean architecture and demonstrates real-world bac
 
 ---
 
-## ⚙️ Setup Instructions
+## Setup Instructions
 
 ### 1. Clone the repository
 
@@ -90,20 +128,20 @@ http://localhost:3000
 
 ---
 
-## 📡 API Endpoints
+## API Endpoints
 
-### 🔐 Auth
+### Auth
 
 * POST `/auth/register`
 * POST `/auth/login`
 
-### 👤 Users (Admin Only)
+### Users (Admin Only)
 
 * GET `/users`
 * PUT `/users/:id`
 * DELETE `/users/:id`
 
-### 💰 Records
+### Records
 
 * POST `/records`
 * GET `/records`
@@ -118,202 +156,194 @@ Query params:
 * `page`
 * `limit`
 
-### 📊 Dashboard
-
-* GET `/dashboard/summary`
-* GET `/dashboard/categories`
-* GET `/dashboard/trends`
-* GET `/dashboard/recent`
-
 ---
 
-## 🔑 Role Permissions
+## Design Decisions
 
-| Role    | Permissions              |
-| ------- | ------------------------ |
-| Admin   | Full access              |
-| Analyst | View records + dashboard |
-| Viewer  | Dashboard only           |
-
----
-
-## 🧠 Design Decisions
-
-* JWT used for stateless authentication
-* Role-based middleware ensures secure access
+* Multi-tenant architecture implemented using organization-based scoping
+* Data isolation enforced at query level using `organization` field
+* JWT used for stateless authentication with organization context
+* Role-based middleware ensures secure access control
 * MongoDB chosen for flexible schema design
-* Dashboard aggregation handled on backend
+* Audit logging implemented for traceability of actions
 
 ---
 
-## 🗃️ Data Modeling
+## Data Modeling
 
-* Users and records stored in MongoDB
-* Records linked to users via `createdBy`
-* Enum fields used for roles and transaction types
+### Collections:
+
+#### Users
+
+* username
+* email
+* password
+* role
+* status
+* organization
+
+#### Organizations
+
+* name
+
+#### Records
+
+* amount
+* type
+* category
+* date
+* notes
+* createdBy
+* organization
+
+#### AuditLogs
+
+* action
+* user
+* record
+* organization
+* timestamps
 
 ---
 
-## 🛡️ Validation & Error Handling
+## Security & Validation
 
-The backend includes proper validation and error handling to ensure reliability:
-
-* Input validation for required fields (e.g., username, email, password, amount)
-* Prevention of duplicate users during registration
-* Meaningful error messages for invalid operations
-* Proper HTTP status codes used:
+* Input validation for required fields
+* Duplicate user prevention
+* JWT authentication for protected routes
+* Role-based access enforcement
+* Organization-based data isolation
+* Proper HTTP status codes:
 
   * `400` – Bad Request
   * `401` – Unauthorized
   * `403` – Forbidden
+  * `404` – Not Found
   * `500` – Internal Server Error
-* Role-based access control prevents unauthorized actions
-* Inactive users are restricted from logging in
 
 ---
 
-## 🗃️ Data Persistence
+## Postman Collection
 
-The application uses **MongoDB**, a document-based NoSQL database, for data storage.
+The API can be tested using the provided Postman collection.
 
-* Mongoose is used for schema definition and data modeling
-* User and financial records are stored as separate collections
-* Relationships are maintained using references (e.g., `createdBy`)
-* This approach allows flexible and scalable data management
-
----
-## 📦 Postman Collection
-
-The API can be easily tested using the included Postman collection.
-
-### 📁 Location
+### Location
 
 ```
 postman/finance-backend.postman_collection.json
 ```
 
-### 🚀 How to Use
-
-1. Open Postman
-2. Click **Import**
-3. Select the collection file from the `postman/` folder
-4. Run the requests directly
-
-### 🔐 Authentication
-
-For protected routes, add the JWT token in headers:
+### Authentication
 
 ```
 Authorization: Bearer YOUR_TOKEN
 ```
 
-Alternatively, you can set a Postman environment variable:
-
-```
-token = YOUR_JWT_TOKEN
-```
-
-and use:
+Or use:
 
 ```
 Authorization: Bearer {{token}}
 ```
 
-This allows seamless testing of all authenticated endpoints.
-
 ---
 
-## ⭐ Additional Features
+## Testing
 
-* Pagination for efficient data handling
-* Search functionality using regex queries
+All APIs were tested using Postman with:
+
+* JWT authentication
 * Role-based access control
-* JWT Authentication
-* Inactive user login restriction
-* Rate limiting for API protection
+* Multi-tenant data isolation verification
 
 ---
 
-## 🧪 Testing
+## Key Highlights
 
-All APIs were tested using Postman with JWT-based authentication and role-based access verification.
+* Multi-tenant system with strict data isolation
+* Role-based access control (RBAC)
+* Audit logging for all critical actions
+* Scalable backend architecture
+* Clean and modular API design
 
 ---
 
-## 📸 API Screenshots
 
-### 🔐 Register
+---
+
+## API Screenshots
+
+### Register
 
 ![Register](./screenshots/Register.png)
 
 ---
 
-### 🔑 Login
+### Login
 
 ![Login](./screenshots/Login.png)
 
 ---
 
-### 👤 Get All Users
+### Get All Users
 
 ![Get Users](./screenshots/Get-all-users.png)
 
 ---
 
-### 🚫 Forbidden Access
+### Forbidden Access
 
 ![Forbidden](./screenshots/Get-users-(forbidden).png)
 
 ---
 
-### 💰 Create / Manage Records
+### Create / Manage Records
 
 ![Records](./screenshots/Get-all-records.png)
 
 ---
 
-### ✏️ Update User Status (Active → Inactive)
+### Update User Status (Active → Inactive)
 
 ![Update User](./screenshots/Update-user.png)
 
 ---
 
-### 🔍 Search
+### Search
 
 ![Search](./screenshots/Search.png)
 
 ---
 
-### 📄 Pagination
+### Pagination
 
 ![Pagination](./screenshots/Pagination.png)
 
 ---
 
-### 🔍 Filter
+### Filter
 
 ![Filter](./screenshots/filter.png)
 
 ---
 
-### 📊 Dashboard Summary ⭐
+### Dashboard Summary 
 
 ![Dashboard](./screenshots/Dashboard-Summary.png)
 
 ---
 
-### 📊 Dashboard Trends
+### Dashboard Trends
 
 ![Trends](./screenshots/dashboard-trends.png)
 
 ---
 
-## 📎 Notes
+## Notes
 
 This project was built as part of a backend engineering assignment to demonstrate API design, access control, and data processing capabilities.
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 Rishika Thatipamula
