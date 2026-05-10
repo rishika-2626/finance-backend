@@ -11,18 +11,23 @@ const protect = async (req, res, next) => {
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+      // Fetch user WITH organization
       req.user = await User.findById(decoded.id).select("-password");
 
-      return next();
+      if (!req.user) {
+        return res.status(401).json({ message: "User not found" });
+      }
+
+      next();
     } catch (error) {
       return res.status(401).json({ message: "Not authorized" });
     }
+  } else {
+    return res.status(401).json({ message: "No token" });
   }
-
-  return res.status(401).json({ message: "No token" });
 };
 
-// Role - based access
+// Role-based access
 const authorize = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {

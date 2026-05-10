@@ -26,11 +26,19 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: ["active", "inactive"],
     default: "active"
+  },
+
+  // 🔥 NEW FIELD (IMPORTANT)
+  organization: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Organization",
+    required: true
   }
+
 }, { timestamps: true });
 
 
-//Hash password before saving
+// Hash password
 userSchema.pre("save", async function () {
   if (!this.isModified("password")) return;
 
@@ -38,7 +46,7 @@ userSchema.pre("save", async function () {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-//Compare password (for login)
+// Compare password
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };

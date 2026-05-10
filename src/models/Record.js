@@ -24,7 +24,15 @@ const recordSchema = new mongoose.Schema({
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
+  },
+
+  // 🔥 NEW FIELD (CRITICAL FOR ISOLATION)
+  organization: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Organization",
+    required: true
   }
+
 }, { timestamps: true });
 
 module.exports = mongoose.model("Record", recordSchema);

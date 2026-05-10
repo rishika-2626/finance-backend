@@ -1,9 +1,10 @@
 const User = require("../models/User");
+const Organization = require("../models/Organization");
 const jwt = require("jsonwebtoken");
 
 // Generate JWT
-const generateToken = (id, role) => {
-  return jwt.sign({ id, role }, process.env.JWT_SECRET, {
+const generateToken = (id, role, organization) => {
+  return jwt.sign({ id, role, organization }, process.env.JWT_SECRET, {
     expiresIn: "7d"
   });
 };
@@ -11,9 +12,9 @@ const generateToken = (id, role) => {
 // Register
 const registerUser = async (req, res) => {
   try {
-    const { username, email, password, role } = req.body;
+    const { username, email, password, role, organizationName } = req.body;
 
-    if (!username || !email || !password) {
+    if (!username || !email || !password || !organizationName) {
       return res.status(400).json({ message: "All fields required" });
     }
 
@@ -22,11 +23,23 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ message: "User already exists" });
     }
 
+    // Create organization
+  // 🔥 Check if org exists, else create
+let organization = await Organization.findOne({ name: organizationName });
+
+if (!organization) {
+  organization = await Organization.create({
+    name: organizationName
+  });
+}
+
+    // Create user
     const user = await User.create({
       username,
       email,
       password,
-      role
+      role,
+      organization: organization._id
     });
 
     res.status(201).json({
@@ -34,11 +47,11 @@ const registerUser = async (req, res) => {
       username: user.username,
       email: user.email,
       role: user.role,
-      token: generateToken(user._id, user.role)
+      organization: user.organization,
+      token: generateToken(user._id, user.role, user.organization)
     });
 
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: error.message });
   }
 };
@@ -50,24 +63,22 @@ const loginUser = async (req, res) => {
 
     const user = await User.findOne({ email });
 
-    // If user not found
     if (!user) {
       return res.status(401).json({ message: "Invalid email or password" });
     }
 
-    // Inactive user check (NEW FEATURE)
     if (user.status === "inactive") {
       return res.status(403).json({ message: "User is inactive" });
     }
 
-    // Password check
     if (await user.matchPassword(password)) {
       res.json({
         _id: user._id,
         username: user.username,
         email: user.email,
         role: user.role,
-        token: generateToken(user._id, user.role)
+        organization: user.organization,
+        token: generateToken(user._id, user.role, user.organization)
       });
     } else {
       res.status(401).json({ message: "Invalid email or password" });
