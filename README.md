@@ -222,17 +222,18 @@ Query params:
   * `500` – Internal Server Error
 
 ---
-
+<!-- This is a comment
 ## Postman Collection
 
 The API can be tested using the provided Postman collection.
-
+ -->
+<!--
 ### Location
 
 ```
 postman/finance-backend.postman_collection.json
 ```
-
+-->
 ### Authentication
 
 ```
@@ -269,7 +270,7 @@ All APIs were tested using Postman with:
 
 
 ---
-
+<!--
 ## API Screenshots
 
 ### Register
@@ -337,7 +338,7 @@ All APIs were tested using Postman with:
 ![Trends](./screenshots/dashboard-trends.png)
 
 ---
-
+-->
 ## Notes
 
 This project was built as part of a backend engineering assignment to demonstrate API design, access control, and data processing capabilities.
