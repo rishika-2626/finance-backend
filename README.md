@@ -2,11 +2,20 @@
 
 ## Overview
 
-This project is a **multi-tenant backend system** designed for a finance dashboard. It enables multiple organizations to securely manage their financial records with strict data isolation and role-based access control (RBAC).
+This project is a **multi-tenant financial management backend API** built using Node.js, Express.js, and MongoDB.
 
-Each user belongs to a specific organization, and all data access is restricted within that organization, ensuring complete tenant isolation.
+The system enables multiple organizations to securely manage financial records with:
 
-The system demonstrates real-world backend engineering practices including authentication, authorization, audit logging, and scalable API design.
+* strict tenant isolation
+* role-based access control (RBAC)
+* JWT authentication
+* audit logging
+* dashboard analytics
+* Docker containerization
+
+Each user belongs to a specific organization, and all data access is restricted within that organization to ensure complete isolation between tenants.
+
+The project demonstrates real-world backend engineering concepts including authentication, authorization, scalable API design, middleware architecture, audit logging, and service-layer based backend structure.
 
 ---
 
@@ -15,9 +24,10 @@ The system demonstrates real-world backend engineering practices including authe
 ### Multi-Tenant Architecture
 
 * Support for multiple organizations (tenants)
-* Each user is associated with a specific organization
-* Strict data isolation between organizations
-* Shared database with scoped queries for tenant safety
+* Each user belongs to a specific organization
+* Strict organization-level data isolation
+* Shared database with organization-scoped queries
+* Secure tenant separation enforced throughout the backend
 
 ---
 
@@ -27,6 +37,7 @@ The system demonstrates real-world backend engineering practices including authe
 * Secure login and registration
 * Role-based access control (Admin, Analyst, Viewer)
 * Prevent login for inactive users
+* Password hashing using bcryptjs
 
 ---
 
@@ -37,6 +48,23 @@ The system demonstrates real-world backend engineering practices including authe
 | Admin   | Full access (CRUD operations) |
 | Analyst | Create + view records         |
 | Viewer  | View-only access              |
+
+---
+
+### User Management
+
+Admins can:
+
+* View organization users
+* Update user roles
+* Activate/deactivate users
+* Delete users
+
+Additional protections:
+
+* Prevent self-deletion
+* Prevent self-role modification
+* Organization-scoped user management
 
 ---
 
@@ -67,6 +95,8 @@ The system demonstrates real-world backend engineering practices including authe
 
 ### Audit Logging
 
+The system maintains audit logs for critical actions.
+
 * Tracks all record-related actions:
 
   * CREATE
@@ -74,7 +104,9 @@ The system demonstrates real-world backend engineering practices including authe
   * DELETE
 * Logs include:
 
-  * user
+  * action
+  * acting user
+  * target user
   * record
   * organization
   * timestamp
@@ -89,6 +121,64 @@ The system demonstrates real-world backend engineering practices including authe
 * JWT Authentication
 * bcryptjs
 
+---
+
+## Authentication & Security
+
+* JSON Web Token
+* bcryptjs
+* express-rate-limit
+
+---
+
+## Dev Tools
+
+* Docker
+* Docker Compose
+* Nodemon
+* Postman
+
+---
+
+## Project Structure
+
+```
+finance-backend/
+│
+├── src/
+│   ├── config/
+│   │   └── db.js
+│   │
+│   ├── controllers/
+│   │   ├── authController.js
+│   │   ├── userController.js
+│   │   ├── recordController.js
+│   │   └── dashboardController.js
+│   │
+│   ├── middleware/
+│   │   └── authMiddleware.js
+│   │
+│   ├── models/
+│   │   ├── User.js
+│   │   ├── Organization.js
+│   │   ├── Record.js
+│   │   └── AuditLog.js
+│   │
+│   ├── routes/
+│   │   ├── authRoutes.js
+│   │   ├── userRoutes.js
+│   │   ├── recordRoutes.js
+│   │   └── dashboardRoutes.js
+│   │
+│   └── services/
+│       └── dashboardService.js
+│
+├── Dockerfile
+├── docker-compose.yml
+├── server.js
+├── package.json
+└── .env
+```
 ---
 
 ## Setup Instructions
@@ -127,6 +217,17 @@ http://localhost:3000
 ```
 
 ---
+
+## Docker Support 
+
+The project is fully containerized using Docker.
+
+### Docker Features
+
+* Node.js containerization
+* Docker Compose support
+* Environment variable support
+* Production-ready setup
 
 ## API Endpoints
 
@@ -181,10 +282,12 @@ Query params:
 * role
 * status
 * organization
+* timestamps
 
 #### Organizations
 
 * name
+* timestamps
 
 #### Records
 
@@ -195,11 +298,13 @@ Query params:
 * notes
 * createdBy
 * organization
+* timestamps
 
 #### AuditLogs
 
 * action
 * user
+* targetUser
 * record
 * organization
 * timestamps
@@ -222,18 +327,20 @@ Query params:
   * `500` – Internal Server Error
 
 ---
-<!-- This is a comment
+
 ## Postman Collection
 
 The API can be tested using the provided Postman collection.
- -->
-<!--
+
+--
+
 ### Location
 
 ```
-postman/finance-backend.postman_collection.json
+postman/Multi_Tenant_Finance_Backend.postman_collection.json
 ```
--->
+--
+
 ### Authentication
 
 ```
@@ -268,80 +375,38 @@ All APIs were tested using Postman with:
 
 ---
 
+## Future Improvements
 
----
-<!--
-## API Screenshots
-
-### Register
-
-![Register](./screenshots/Register.png)
-
----
-
-### Login
-
-![Login](./screenshots/Login.png)
-
----
-
-### Get All Users
-
-![Get Users](./screenshots/Get-all-users.png)
+Planned enhancements:
+* Email verification
+* OAuth authentication (Google/GitHub)
+* React frontend dashboard
+* Organization invitation system
+* Task management module
+* CSV import/export
+* File uploads
+* Cloud deployment
+* CI/CD pipelines
+* Automated testing
 
 ---
 
-### Forbidden Access
+## Key Highlights
 
-![Forbidden](./screenshots/Get-users-(forbidden).png)
-
----
-
-### Create / Manage Records
-
-![Records](./screenshots/Get-all-records.png)
-
----
-
-### Update User Status (Active → Inactive)
-
-![Update User](./screenshots/Update-user.png)
+* Multi-tenant architecture
+* Strict tenant isolation
+* JWT authentication
+* Role-Based Access Control (RBAC)
+* Audit logging
+* Dashboard analytics
+* Docker containerization
+* Modular scalable backend architecture
 
 ---
 
-### Search
-
-![Search](./screenshots/Search.png)
-
----
-
-### Pagination
-
-![Pagination](./screenshots/Pagination.png)
-
----
-
-### Filter
-
-![Filter](./screenshots/filter.png)
-
----
-
-### Dashboard Summary 
-
-![Dashboard](./screenshots/Dashboard-Summary.png)
-
----
-
-### Dashboard Trends
-
-![Trends](./screenshots/dashboard-trends.png)
-
----
--->
 ## Notes
 
-This project was built as part of a backend engineering assignment to demonstrate API design, access control, and data processing capabilities.
+This project was built to demonstrate backend engineering concepts including API design, access control, authentication, authorization, data processing, and scalable backend architecture
 
 ---
 

@@ -1,0 +1,486 @@
+{
+  "info": {
+    "_postman_id": "8d8d64fe-ccbe-4642-924e-4a9da5ae3a66",
+    "name": "Multi Tenant Finance Backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "44139707",
+    "_collection_link": "https://go.postman.co/collection/44139707-8d8d64fe-ccbe-4642-924e-4a9da5ae3a66?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDNmMzcwNGE2YjExNWEzN2YzYjcyMiIsInJvbGUiOiJhZG1pbiIsIm9yZ2FuaXphdGlvbiI6IjZhMDNmMzcwNGE2YjExNWEzN2YzYjcyMCIsImlhdCI6MTc3ODY0Mzg3MSwiZXhwIjoxNzc5MjQ4NjcxfQ.DAGSQG1brTbrvKbXmCPyL1JeeDMXkW4w0yOor726Ahk",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"rishika@gmail.com\",\n  \"password\": \"123456\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get users - same organization",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDNmMzcwNGE2YjExNWEzN2YzYjcyMiIsInJvbGUiOiJhZG1pbiIsIm9yZ2FuaXphdGlvbiI6IjZhMDNmMzcwNGE2YjExNWEzN2YzYjcyMCIsImlhdCI6MTc3ODY0Mzg3MSwiZXhwIjoxNzc5MjQ4NjcxfQ.DAGSQG1brTbrvKbXmCPyL1JeeDMXkW4w0yOor726Ahk",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"rishika@gmail.com\",\n  \"password\": \"123456\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/users",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create record",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDNmMzcwNGE2YjExNWEzN2YzYjcyMiIsInJvbGUiOiJhZG1pbiIsIm9yZ2FuaXphdGlvbiI6IjZhMDNmMzcwNGE2YjExNWEzN2YzYjcyMCIsImlhdCI6MTc3ODY0Mzg3MSwiZXhwIjoxNzc5MjQ4NjcxfQ.DAGSQG1brTbrvKbXmCPyL1JeeDMXkW4w0yOor726Ahk",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": 5000,\n  \"type\": \"income\",\n  \"category\": \"Salary\",\n  \"notes\": \"Monthly salary\"\n}\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/records",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "records"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get records",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDNmMzcwNGE2YjExNWEzN2YzYjcyMiIsInJvbGUiOiJhZG1pbiIsIm9yZ2FuaXphdGlvbiI6IjZhMDNmMzcwNGE2YjExNWEzN2YzYjcyMCIsImlhdCI6MTc3ODY0Mzg3MSwiZXhwIjoxNzc5MjQ4NjcxfQ.DAGSQG1brTbrvKbXmCPyL1JeeDMXkW4w0yOor726Ahk",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": 1200,\n  \"type\": \"expense\",\n  \"category\": \"Food\",\n  \"notes\": \"Groceries\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/records",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "records"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get records by type",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDNmMzcwNGE2YjExNWEzN2YzYjcyMiIsInJvbGUiOiJhZG1pbiIsIm9yZ2FuaXphdGlvbiI6IjZhMDNmMzcwNGE2YjExNWEzN2YzYjcyMCIsImlhdCI6MTc3ODY0Mzg3MSwiZXhwIjoxNzc5MjQ4NjcxfQ.DAGSQG1brTbrvKbXmCPyL1JeeDMXkW4w0yOor726Ahk",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": 1200,\n  \"type\": \"expense\",\n  \"category\": \"Food\",\n  \"notes\": \"Groceries\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/records?type=expense",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "records"
+          ],
+          "query": [
+            {
+              "key": "type",
+              "value": "expense"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get records by category",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDNmMzcwNGE2YjExNWEzN2YzYjcyMiIsInJvbGUiOiJhZG1pbiIsIm9yZ2FuaXphdGlvbiI6IjZhMDNmMzcwNGE2YjExNWEzN2YzYjcyMCIsImlhdCI6MTc3ODY0Mzg3MSwiZXhwIjoxNzc5MjQ4NjcxfQ.DAGSQG1brTbrvKbXmCPyL1JeeDMXkW4w0yOor726Ahk",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": 1200,\n  \"type\": \"expense\",\n  \"category\": \"Food\",\n  \"notes\": \"Groceries\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/records?category=Food",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "records"
+          ],
+          "query": [
+            {
+              "key": "category",
+              "value": "Food"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get records by search",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDNmMzcwNGE2YjExNWEzN2YzYjcyMiIsInJvbGUiOiJhZG1pbiIsIm9yZ2FuaXphdGlvbiI6IjZhMDNmMzcwNGE2YjExNWEzN2YzYjcyMCIsImlhdCI6MTc3ODY0Mzg3MSwiZXhwIjoxNzc5MjQ4NjcxfQ.DAGSQG1brTbrvKbXmCPyL1JeeDMXkW4w0yOor726Ahk",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": 1200,\n  \"type\": \"expense\",\n  \"category\": \"Food\",\n  \"notes\": \"Groceries\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/records?search=food",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "records"
+          ],
+          "query": [
+            {
+              "key": "search",
+              "value": "food"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get records - pagination",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDNmMzcwNGE2YjExNWEzN2YzYjcyMiIsInJvbGUiOiJhZG1pbiIsIm9yZ2FuaXphdGlvbiI6IjZhMDNmMzcwNGE2YjExNWEzN2YzYjcyMCIsImlhdCI6MTc3ODY0Mzg3MSwiZXhwIjoxNzc5MjQ4NjcxfQ.DAGSQG1brTbrvKbXmCPyL1JeeDMXkW4w0yOor726Ahk",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": 1200,\n  \"type\": \"expense\",\n  \"category\": \"Food\",\n  \"notes\": \"Groceries\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/records?page=1&limit=2",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "records"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "2"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update record",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDNmMzcwNGE2YjExNWEzN2YzYjcyMiIsInJvbGUiOiJhZG1pbiIsIm9yZ2FuaXphdGlvbiI6IjZhMDNmMzcwNGE2YjExNWEzN2YzYjcyMCIsImlhdCI6MTc3ODY0Mzg3MSwiZXhwIjoxNzc5MjQ4NjcxfQ.DAGSQG1brTbrvKbXmCPyL1JeeDMXkW4w0yOor726Ahk",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": 7000,\n  \"notes\": \"Updated salary\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/records/6a03f5ec4a6b115a37f3b743",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "records",
+            "6a03f5ec4a6b115a37f3b743"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get dashboard summary",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDNmMzcwNGE2YjExNWEzN2YzYjcyMiIsInJvbGUiOiJhZG1pbiIsIm9yZ2FuaXphdGlvbiI6IjZhMDNmMzcwNGE2YjExNWEzN2YzYjcyMCIsImlhdCI6MTc3ODY0Mzg3MSwiZXhwIjoxNzc5MjQ4NjcxfQ.DAGSQG1brTbrvKbXmCPyL1JeeDMXkW4w0yOor726Ahk",
+            "type": "text",
+            "disabled": true
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDNmMzg4NGE2YjExNWEzN2YzYjcyOCIsInJvbGUiOiJhbmFseXN0Iiwib3JnYW5pemF0aW9uIjoiNmEwM2YzNzA0YTZiMTE1YTM3ZjNiNzIwIiwiaWF0IjoxNzc4NjQ1MDY5LCJleHAiOjE3NzkyNDk4Njl9.pPVEhhidrDfA34R7WTEOxaaBuNvIKuVSfvmq3KlrwiQ",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": 7000,\n  \"notes\": \"Updated salary\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/dashboard/summary",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "dashboard",
+            "summary"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get dashboard recent activity",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDNmMzcwNGE2YjExNWEzN2YzYjcyMiIsInJvbGUiOiJhZG1pbiIsIm9yZ2FuaXphdGlvbiI6IjZhMDNmMzcwNGE2YjExNWEzN2YzYjcyMCIsImlhdCI6MTc3ODY0Mzg3MSwiZXhwIjoxNzc5MjQ4NjcxfQ.DAGSQG1brTbrvKbXmCPyL1JeeDMXkW4w0yOor726Ahk",
+            "type": "text",
+            "disabled": true
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDNmMzg4NGE2YjExNWEzN2YzYjcyOCIsInJvbGUiOiJhbmFseXN0Iiwib3JnYW5pemF0aW9uIjoiNmEwM2YzNzA0YTZiMTE1YTM3ZjNiNzIwIiwiaWF0IjoxNzc4NjQ1MDY5LCJleHAiOjE3NzkyNDk4Njl9.pPVEhhidrDfA34R7WTEOxaaBuNvIKuVSfvmq3KlrwiQ",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": 7000,\n  \"notes\": \"Updated salary\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/dashboard/recent",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "dashboard",
+            "recent"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
