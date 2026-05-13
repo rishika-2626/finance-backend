@@ -328,18 +328,28 @@ Query params:
 
 ---
 
+## Testing
+
+All APIs were tested using Postman with:
+
+* JWT authentication
+* Role-based access control
+* Multi-tenant data isolation verification
+
+---
+
 ## Postman Collection
 
 The API can be tested using the provided Postman collection.
 
---
+---
 
 ### Location
 
 ```
 postman/Multi_Tenant_Finance_Backend.postman_collection.json
 ```
---
+---
 
 ### Authentication
 
@@ -355,23 +365,16 @@ Authorization: Bearer {{token}}
 
 ---
 
-## Testing
-
-All APIs were tested using Postman with:
-
-* JWT authentication
-* Role-based access control
-* Multi-tenant data isolation verification
-
----
-
 ## Key Highlights
 
-* Multi-tenant system with strict data isolation
-* Role-based access control (RBAC)
-* Audit logging for all critical actions
-* Scalable backend architecture
-* Clean and modular API design
+* Multi-tenant architecture
+* Strict tenant isolation
+* JWT authentication
+* Role-Based Access Control (RBAC)
+* Audit logging
+* Dashboard analytics
+* Docker containerization
+* Modular scalable backend architecture
 
 ---
 
@@ -388,19 +391,6 @@ Planned enhancements:
 * Cloud deployment
 * CI/CD pipelines
 * Automated testing
-
----
-
-## Key Highlights
-
-* Multi-tenant architecture
-* Strict tenant isolation
-* JWT authentication
-* Role-Based Access Control (RBAC)
-* Audit logging
-* Dashboard analytics
-* Docker containerization
-* Modular scalable backend architecture
 
 ---
 
