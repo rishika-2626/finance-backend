@@ -1,11 +1,10 @@
-const express = require("express");
-const dotenv = require("dotenv");
-const cors = require("cors");
-const connectDB = require("./src/config/db");
+const express = require("express"); // used to create the backend server
+const dotenv = require("dotenv"); // loads env variables
+const cors = require("cors"); // without cors browser blocks requests.. this allows your fronted and backend to communicate if they running on different ports/domains.
+const connectDB = require("./src/config/db"); // connects to the database
 
-const recordRoutes = require("./src/routes/recordRoutes");
+const recordRoutes = require("./src/routes/recordRoutes");  // api end points
 const dashboardRoutes = require("./src/routes/dashboardRoutes");
-
 const authRoutes = require("./src/routes/authRoutes");
 const userRoutes = require("./src/routes/userRoutes");
 
@@ -40,3 +39,20 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+
+/*
+Start server
+   ↓
+Load env variables
+   ↓
+Connect database
+   ↓
+Apply middleware
+   ↓
+Apply rate limiting
+   ↓
+Register routes
+   ↓
+Listen on port
+*/

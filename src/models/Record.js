@@ -26,7 +26,7 @@ const recordSchema = new mongoose.Schema({
     ref: "User"
   },
 
-  // 🔥 NEW FIELD (CRITICAL FOR ISOLATION)
+  // NEW FIELD (CRITICAL FOR ISOLATION)
   organization: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Organization",
@@ -36,3 +36,11 @@ const recordSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 module.exports = mongoose.model("Record", recordSchema);
+
+/*
+Organization
+   ↓
+Users
+   ↓
+Records
+*/

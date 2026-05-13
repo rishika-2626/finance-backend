@@ -3,7 +3,7 @@ const {
   calculateCategoryBreakdown,
   calculateMonthlyTrends,
   getRecentRecords
-} = require("../services/dashboardService");
+} = require("../services/dashboardServices");
 
 // GET /dashboard/summary
 const getSummary = async (req, res) => {

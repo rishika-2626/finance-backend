@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
-    trim: true
+    trim: true //removes extra spaces
   },
   email: {
     type: String,
@@ -28,10 +28,10 @@ const userSchema = new mongoose.Schema({
     default: "active"
   },
 
-  // 🔥 NEW FIELD (IMPORTANT)
+  // NEW FIELD (IMPORTANT)
   organization: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Organization",
+    ref: "Organization", //Your User model stores an Organization document’s ID, and ref: "Organization" tells Mongoose which model that ID belongs to.
     required: true
   }
 

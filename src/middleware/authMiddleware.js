@@ -1,8 +1,9 @@
-const jwt = require("jsonwebtoken");
-const User = require("../models/User");
+const jwt = require("jsonwebtoken"); // to create and verify json web token
+const User = require("../models/User"); // imports mongodb user model, needed to fetch user details from database
 
 // Protect routes
 const protect = async (req, res, next) => {
+  
   let token;
 
   if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
@@ -15,7 +16,7 @@ const protect = async (req, res, next) => {
       req.user = await User.findById(decoded.id).select("-password");
 
       if (!req.user) {
-        return res.status(401).json({ message: "User not found" });
+        return res.status(401).json({ message: "User not found" }); // possible case - token is valid but user was delete from the database
       }
 
       next();
@@ -27,8 +28,23 @@ const protect = async (req, res, next) => {
   }
 };
 
+/*
+summary of protect
+Request comes
+   ↓
+Check token exists
+   ↓
+Verify token
+   ↓
+Get user from DB
+   ↓
+Attach user to req.user
+   ↓
+Allow access
+*/
+
 // Role-based access
-const authorize = (...roles) => {
+const authorize = (...roles) => { //checks permission..
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
       return res.status(403).json({ message: "Forbidden" });

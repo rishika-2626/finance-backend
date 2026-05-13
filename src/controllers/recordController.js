@@ -5,15 +5,34 @@ const AuditLog = require("../models/AuditLog");
 // Create Record (Admin + Analyst only)
 const createRecord = async (req, res) => {
   try {
-    // 🔐 RBAC CHECK
+
+    // RBAC CHECK
     if (!["admin", "analyst"].includes(req.user.role)) {
-      return res.status(403).json({ message: "Forbidden" });
+      return res.status(403).json({
+        message: "Forbidden"
+      });
     }
 
     const { amount, type, category, date, notes } = req.body;
 
-    if (!amount || !type || !category) {
-      return res.status(400).json({ message: "Required fields missing" });
+    // Better validation
+    if (
+      amount === undefined ||
+      !type ||
+      !category
+    ) {
+      return res.status(400).json({
+        message: "Required fields missing"
+      });
+    }
+
+    // Validate type
+    const allowedTypes = ["income", "expense"];
+
+    if (!allowedTypes.includes(type)) {
+      return res.status(400).json({
+        message: "Invalid record type"
+      });
     }
 
     const record = await Record.create({
@@ -26,9 +45,9 @@ const createRecord = async (req, res) => {
       organization: req.user.organization
     });
 
-    // 🔥 AUDIT LOG
+    // AUDIT LOG
     await AuditLog.create({
-      action: "CREATE",
+      action: `Created ${type} record`,
       user: req.user._id,
       record: record._id,
       organization: req.user.organization
@@ -37,7 +56,9 @@ const createRecord = async (req, res) => {
     res.status(201).json(record);
 
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      message: error.message
+    });
   }
 };
 
@@ -45,15 +66,33 @@ const createRecord = async (req, res) => {
 // Get Records (ALL roles allowed)
 const getRecords = async (req, res) => {
   try {
-    const { type, category, startDate, endDate, page = 1, limit = 5, search } = req.query;
 
+    const {
+      type,
+      category,
+      startDate,
+      endDate,
+      page = 1,
+      limit = 5,
+      search
+    } = req.query;
+
+    // STRICT ORGANIZATION ISOLATION
     let filter = {
-      organization: req.user.organization // 🔥 STRICT ISOLATION
+      organization: req.user.organization
     };
 
-    if (type) filter.type = type;
-    if (category) filter.category = category;
+    // Filter by type
+    if (type) {
+      filter.type = type;
+    }
 
+    // Filter by category
+    if (category) {
+      filter.category = category;
+    }
+
+    // Filter by date range
     if (startDate && endDate) {
       filter.date = {
         $gte: new Date(startDate),
@@ -61,24 +100,40 @@ const getRecords = async (req, res) => {
       };
     }
 
+    // Search category + notes
     if (search) {
       filter.$or = [
-        { category: { $regex: search, $options: "i" } },
-        { notes: { $regex: search, $options: "i" } }
+        {
+          category: {
+            $regex: search,
+            $options: "i"
+          }
+        },
+        {
+          notes: {
+            $regex: search,
+            $options: "i"
+          }
+        }
       ];
     }
 
+    // Pagination
     const pageNumber = Number(page);
     const pageSize = Number(limit);
+
     const skip = (pageNumber - 1) * pageSize;
 
+    // Total records
     const totalRecords = await Record.countDocuments(filter);
 
+    // Fetch records
     const records = await Record.find(filter)
       .populate("createdBy", "username email")
       .sort({ createdAt: -1 })
       .skip(skip)
-      .limit(pageSize);
+      .limit(pageSize)
+      .lean();
 
     res.json({
       page: pageNumber,
@@ -89,7 +144,9 @@ const getRecords = async (req, res) => {
     });
 
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      message: error.message
+    });
   }
 };
 
@@ -97,27 +154,56 @@ const getRecords = async (req, res) => {
 // Update Record (Admin only)
 const updateRecord = async (req, res) => {
   try {
-    // 🔐 RBAC CHECK
+
+    // RBAC CHECK
     if (req.user.role !== "admin") {
-      return res.status(403).json({ message: "Only admin can update records" });
+      return res.status(403).json({
+        message: "Only admin can update records"
+      });
     }
 
+    // Find record within same organization
     const record = await Record.findOne({
       _id: req.params.id,
       organization: req.user.organization
     });
 
     if (!record) {
-      return res.status(404).json({ message: "Record not found" });
+      return res.status(404).json({
+        message: "Record not found"
+      });
     }
 
-    Object.assign(record, req.body);
+    // Allowed fields only
+    const allowedUpdates = [
+      "amount",
+      "type",
+      "category",
+      "date",
+      "notes"
+    ];
+
+    for (const key of allowedUpdates) {
+      if (req.body[key] !== undefined) {
+        record[key] = req.body[key];
+      }
+    }
+
+    // Validate type if updated
+    if (
+      record.type &&
+      !["income", "expense"].includes(record.type)
+    ) {
+      return res.status(400).json({
+        message: "Invalid record type"
+      });
+    }
 
     await record.save();
 
-    // 🔥 AUDIT LOG
+    // AUDIT LOG
     await AuditLog.create({
-      action: "UPDATE",
+      action: `Updated ${record.type} record`,
       user: req.user._id,
       record: record._id,
       organization: req.user.organization
@@ -126,7 +212,9 @@ const updateRecord = async (req, res) => {
     res.json(record);
 
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      message: error.message
+    });
   }
 };
 
@@ -134,34 +222,48 @@ const updateRecord = async (req, res) => {
 // Delete Record (Admin only)
 const deleteRecord = async (req, res) => {
   try {
-    // 🔐 RBAC CHECK
+
+    // RBAC CHECK
     if (req.user.role !== "admin") {
-      return res.status(403).json({ message: "Only admin can delete records" });
+      return res.status(403).json({
+        message: "Only admin can delete records"
+      });
     }
 
-    const record = await Record.findOneAndDelete({
+    // Find record within same organization
+    const record = await Record.findOne({
       _id: req.params.id,
       organization: req.user.organization
     });
 
     if (!record) {
-      return res.status(404).json({ message: "Record not found" });
+      return res.status(404).json({
+        message: "Record not found"
+      });
     }
 
-    // 🔥 AUDIT LOG
+    // Delete record
+    await record.deleteOne();
+
+    // AUDIT LOG
     await AuditLog.create({
-      action: "DELETE",
+      action: `Deleted ${record.type} record`,
       user: req.user._id,
-      record: req.params.id,
+      record: record._id,
       organization: req.user.organization
     });
 
-    res.json({ message: "Record deleted" });
+    res.json({
+      message: "Record deleted"
+    });
 
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      message: error.message
+    });
   }
 };
+
 
 module.exports = {
   createRecord,
