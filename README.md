@@ -229,6 +229,35 @@ The project is fully containerized using Docker.
 * Environment variable support
 * Production-ready setup
 
+---
+
+## Running with Docker
+
+### Build & Run
+
+```
+docker compose up --build
+
+```
+
+### Stop Containers
+
+```
+docker compose down
+```
+
+---
+
+## Docker Hub
+
+Docker image available at:
+
+```
+docker pull rishika2626/finance-backend
+```
+
+---
+
 ## API Endpoints
 
 ### Auth
